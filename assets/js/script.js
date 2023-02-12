@@ -12,20 +12,18 @@ $("#clear-button").on("click", function (event) {
     $(".input-group-append").html("")
 })
 
-// location search put into a function when text entered.
-
 function searchFunction(locationSearch) {
 
     var city = locationSearch || $('#search-input').val();
 
     var geoQuery = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&appid=" + APIKey;
 
-    // have to remove before new results are printed
+    // final peace of clearing before new result is entered.
 
     $("#today").html("")
     $("#forecast").html("")
  
-
+// make the ajax calls
     $.ajax({
         url: geoQuery,
         method: "GET"
@@ -174,7 +172,8 @@ $(document).ready(function () {
     for (i = 0; i < locationArray.length; i++) {
         var previousEntry = $("<button>")
 
-        // Bootstrap was added for look
+        // bootstrap implemented for better look.
+
         previousEntry.addClass("btn btn-sm btn-light btn-outline-info")
         previousEntry.attr({
             "type": "button",
