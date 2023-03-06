@@ -1,7 +1,7 @@
 // making the date and api keys into variables
 
 var currentDate = moment().format("DD/MM/YY");
-var APIKey = "d608178db60a39a8bbf9085b8ec701e5";
+var APIKey = "390f5114943f4296ae01258220aa03af";
 
 
 $("#clear-button").on("click", function (event) {
