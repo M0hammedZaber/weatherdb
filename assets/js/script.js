@@ -19,11 +19,10 @@ function searchFunction(locationSearch) {
     var geoQuery = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&appid=" + APIKey;
 
     // final peace of clearing before new result is entered.
-
     $("#today").html("")
     $("#forecast").html("")
  
-// make the ajax calls
+
     $.ajax({
         url: geoQuery,
         method: "GET"
@@ -35,7 +34,7 @@ function searchFunction(locationSearch) {
 
         var forecastQuery = "https://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + APIKey
 
-
+// make the ajax calls
         $.ajax({
             url: forecastQuery,
             method: "GET",
@@ -126,7 +125,6 @@ $("#search-button").on("click", function (event) {
    
 })
 
-
     function previouslySearched() {
 
             var city = $('#search-input').val();
@@ -160,37 +158,33 @@ else {
             }}
    
         )}
+        $(document).ready(function () {
 
-
-$(document).ready(function () {
-
-    locationArray = JSON.parse(localStorage.getItem("locationArray")) || []
-    if (locationArray.length == 0) {
-        return;
-    }
-
-    for (i = 0; i < locationArray.length; i++) {
-        var previousEntry = $("<button>")
-
-        // bootstrap implemented for better look.
-
-        previousEntry.addClass("btn btn-sm btn-light btn-outline-info")
-        previousEntry.attr({
-            "type": "button",
-            "id": "perm-city-button"
+            locationArray = JSON.parse(localStorage.getItem("locationArray")) || []
+            if (locationArray.length == 0) {
+                return;
+            }
+        
+            for (i = 0; i < locationArray.length; i++) {
+                var previousEntry = $("<button>")
+        
+                previousEntry.addClass("btn btn-sm btn-light btn-outline-info")
+                previousEntry.attr({
+                    "type": "button",
+                    "id": "perm-city-button"
+                })
+        
+                city = previousEntry.text(locationArray[i])
+                clickedButtonText = $(this).text();
+                $(".input-group-append").prepend(previousEntry)
+                var previousEntry = $("#perm-city-button")
+        
+                previousEntry.on("click", function (event) {
+                    event.preventDefault()
+                    var locationSearch = ($(this).text());
+                    searchFunction(locationSearch)
+                })
+            }
+        
+            $(".form-input").val("");
         })
-
-        city = previousEntry.text(locationArray[i])
-        clickedButtonText = $(this).text();
-        $(".input-group-append").prepend(previousEntry)
-        var previousEntry = $("#perm-city-button")
-
-        previousEntry.on("click", function (event) {
-            event.preventDefault()
-            var locationSearch = ($(this).text());
-            searchFunction(locationSearch)
-        })
-    }
-
-    $(".form-input").val("");
-})
